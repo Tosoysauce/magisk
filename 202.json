@@ -2,15 +2,15 @@
   "app": {
     "version": "7.5.0",
     "versionCode": "265",
-    "link": "https://soy-tool.coding.net/api/share/download/efb51f1f-df27-45de-86d7-5d51be24d1ea"
+    "link": "https://github.com/Tosoysauce/magisk/raw/main/mj/202/magisk.apk"
   },
   "magisk": {
     "version": "20.2",
     "versionCode": "20200",
-    "link": "https://soy-tool.coding.net/api/share/download/26f7fae0-a65a-4d77-8d9d-baa2cdd357d5",
+    "link": "https://github.com/Tosoysauce/magisk/raw/main/mj/202/Magisk-v20.2.zip",
     "md5": "7da59a78ab2fb4dc9d123f1e4db3cba5"
   },
   "uninstaller": {
-    "link": "https://soy-tool.coding.net/api/share/download/26f7fae0-a65a-4d77-8d9d-baa2cdd357d5"
+    "link": "https://github.com/Tosoysauce/magisk/raw/main/mj/202/Magisk-uninstaller.zip
   }
 }

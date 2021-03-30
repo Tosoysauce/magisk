@@ -2,20 +2,20 @@
   "app": {
     "version": "22.0",
     "versionCode": "22000",
-    "link": "https://soy-tool.coding.net/api/share/download/abe1c693-bf0d-42f5-a71c-21558534377b",
+    "link": "https://github.com/Tosoysauce/magisk/raw/main/mj/220/magisk.apk",
     "note": "https://topjohnwu.github.io/Magisk/releases/22000.md"
   },
   "stub": {
     "versionCode": "18",
-    "link": "https://soy-tool.coding.net/api/share/download/abe1c693-bf0d-42f5-a71c-21558534377b"
+    "link": "https://github.com/topjohnwu/Magisk/releases/download/v22.0/stub-release.apk"
   },
   "uninstaller": {
-    "link": "https://soy-tool.coding.net/api/share/download/2fac24c0-0f27-4d11-a0c7-f0f31a6e9df8"
+    "link": "https://github.com/Tosoysauce/magisk/raw/main/mj/220/Magisk-uninstaller.zip"
   },
   "magisk": {
     "version": "22.0",
     "versionCode": "22000",
-    "link": "https://soy-tool.coding.net/api/share/download/abe1c693-bf0d-42f5-a71c-21558534377b",
+    "link": "https://github.com/Tosoysauce/magisk/raw/main/mj/220/Magisk-v22.0.zip",
     "note": "https://topjohnwu.github.io/Magisk/releases/22000.md",
     "md5": "e14132835b4cc0878639fcf645db479c"
   }
