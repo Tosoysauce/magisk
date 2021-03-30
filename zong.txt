@@ -1,0 +1,11 @@
+22.0版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/220.json
+21.4版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/214.json
+21.3版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/213.json
+21.2版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/212.json
+21.1版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/211.json
+21.0版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/210.json
+20.4版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/204.json
+20.3版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/203.json
+20.2版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/202.json
+20.1版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/201.json
+19.3版本：https://soy-tool.coding.net/p/magisk/d/mj/git/raw/master/193.json

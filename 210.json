@@ -1,0 +1,16 @@
+{
+  "app": {
+    "version": "8.0.0",
+    "versionCode": "302",
+    "link": "https://soy-tool.coding.net/api/share/download/6ef532f9-d49f-4fc6-b121-dd2af8ceb285"
+  },
+  "magisk": {
+    "version": "21.0",
+    "versionCode": "21000",
+    "link": "https://soy-tool.coding.net/api/share/download/5b986eb4-5b3d-4d6a-9259-ac3d570cca84",
+    "md5": "13d4bab053d694966e4cadd623458523"
+  },
+  "uninstaller": {
+    "link": "https://soy-tool.coding.net/api/share/download/efa607a8-beb0-484e-86d4-d0d960cc1449"
+  }
+}
