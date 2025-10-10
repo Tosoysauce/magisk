@@ -626,7 +626,7 @@ module.exports = {
   json_转换字符串: getStrFun,
   RSA加密: encrypt_rsa,
   RSA解密: decrypt_rsa,
-  获取代理IP: fetchProxyIp,
+  获取ip: fetchProxyIp,
   axios: axios,
   NodeRSA: NodeRSA,
   发送HTTP请求: send,
