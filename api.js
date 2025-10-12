@@ -41,7 +41,21 @@ const NodeRSA = (() => {
     throw new Error("\n缺少依赖：请安装 `node-rsa` 安装依赖\n");
   }
 })();
-
+/**
+ * 初始化 https 模块
+ * @returns {object} https 模块实例
+ * @throws {Error} 如果 https 模块未安装
+ */
+const https = (() => {
+  try {
+    return require("https");
+  } catch (error) {
+    throw new Error("\n缺少依赖：请安装 `https` 安装依赖\n");
+  }
+})();
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 随机延时函数
  * @param {number} min - 最小延时时间（秒）
@@ -63,7 +77,9 @@ async function Sleep_time(min, max) {
   }
   await wait(Math.floor(Math.random() * (max - min + 1)) + min);
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 延时函数
  * @param {number} t - 延时时间（秒）
@@ -76,7 +92,9 @@ async function wait(t) {
   }
   return new Promise((resolve) => setTimeout(resolve, t * 1000));
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 对手机号进行脱敏处理
  * @param {string} phone_num - 手机号
@@ -92,7 +110,9 @@ async function phoneNum(phone_num) {
   }
   return phone_num;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 对字符串进行补位操作
  * @param {string|number} num - 要补位的字符串或数字
@@ -112,7 +132,9 @@ async function padStr(num, len, padding = "0", side = "左") {
   const str = String(num);
   return side === "左" ? str.padStart(len, padding) : str.padEnd(len, padding);
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 从数组中随机选择一个元素
  * @param {Array} a - 输入数组
@@ -126,7 +148,9 @@ async function randomList(a) {
   const idx = Math.floor(Math.random() * a.length);
   return a[idx];
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 生成指定长度的 MD5 哈希值（16 或 32 位）
  * @param {string} str - 待哈希的字符串
@@ -151,7 +175,9 @@ async function MD5(str, len = 32, upper = false) {
   }
   return hash;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 生成指定长度的随机字符串（包含字母和数字）
  * @param {number} n - 字符串长度
@@ -169,7 +195,9 @@ async function getStr(n) {
   ).join("");
   return result;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 生成指定长度的随机数字字符串
  * @param {number} n - 字符串长度
@@ -187,7 +215,9 @@ async function getNum(n) {
   ).join("");
   return result;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 生成指定范围内的随机整数（包含 min 和 max）
  * @param {number} min - 最小值（包含）
@@ -206,7 +236,9 @@ async function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 使用 HmacSHA256 算法生成签名并返回指定格式的字符串
  * @param {string} msg - 待签名的消息
@@ -229,7 +261,9 @@ async function HmacSHA256(msg, Key, format = "hex") {
     ? hash.toString(CryptoJs.enc.Hex)
     : hash.toString(CryptoJs.enc.Base64);
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 检查数字是否为偶数
  * @param {number} number - 待检查的数字
@@ -242,7 +276,9 @@ async function checkOddEven(number) {
   }
   return number % 2 === 0;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 使用 DES 算法加密消息
  * @param {string} msg - 待加密的消息
@@ -273,7 +309,9 @@ async function DES_encryptBy(msg, key, iv, mode = "CBC") {
   const encrypted = CryptoJs.DES.encrypt(msg, parsedKey, options);
   return encrypted.toString();
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 使用 DES 算法解密消息
  * @param {string} msg - 待解密的消息
@@ -301,10 +339,13 @@ async function DES_decryptBy(msg, key, iv, mode = "CBC") {
     }
     options.iv = CryptoJs.enc.Utf8.parse(iv);
   }
-  const decrypted = CryptoJs.DES.decrypt(msg, parsedKey, options);
-  return decrypted.toString(CryptoJs.enc.Utf8);
+  const decrypted = CryptoJs.TripleDES.decrypt(msg, parsedKey, options);
+  console.log(decrypted.toString(CryptoJs.enc.Base64))
+  return decrypted.toString(CryptoJs.enc.Base64);
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 使用 AES 算法加密消息
  * @param {string} msg - 待加密的消息
@@ -335,7 +376,9 @@ async function AES_encrypt(msg, key, iv, mode = "CBC") {
   const encrypted = CryptoJs.AES.encrypt(msg, parsedKey, options);
   return encrypted.toString();
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 使用 AES 算法解密消息
  * @param {string} msg - 待解密的消息
@@ -366,7 +409,9 @@ async function AES_decrypt(msg, key, iv, mode = "CBC") {
   const decrypted = CryptoJs.AES.decrypt(msg, parsedKey, options);
   return decrypted.toString(CryptoJs.enc.Utf8);
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 // 生成 UUID
 async function getUUID(length = 36) {
   const chars = "0123456789abcdef";
@@ -380,7 +425,9 @@ async function getUUID(length = 36) {
 
   return uuid.join("");
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 生成指定长度的随机字符串，字符串来源于指定的句子
  * @param {number} len - 随机字符串的长度
@@ -402,7 +449,9 @@ async function get_random_sentence(len, sentence) {
   });
   return randomChars.join("");
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 将对象转换为 URL 查询字符串格式
  * @param {Object} e - 需要转换的对象
@@ -413,7 +462,9 @@ async function getStrFun(e) {
   for (var n in e) t += "".concat(n, "=").concat(e[n], "&");
   return t.lastIndexOf("&") == t.length - 1 ? t.substring(0, t.length - 1) : t;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 使用 RSA 公钥对指定字符串进行加密
  * @param {string} t - 需要加密的字符串
@@ -433,7 +484,9 @@ async function encrypt_rsa(t, key, outputFormat = "base64") {
   );
   return decryptText;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 使用 RSA 私钥对指定字符串进行解密
  * @param {string} encryptedText - 需要解密的字符串（Base64 或十六进制格式）
@@ -453,7 +506,9 @@ async function decrypt_rsa(t, key, outputFormat = "base64") {
   );
   return decryptText;
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 发送 HTTP 请求
  * @param {string} m - HTTP 方法（get/post/put/delete）
@@ -461,31 +516,27 @@ async function decrypt_rsa(t, key, outputFormat = "base64") {
  * @param {string} p - 代理配置（格式：IP:端口）
  * @param {Function} e - 回调函数（error, request, response）
  */
-function send(m, t, p, e = () => {}) {
+async function send(m, t, p, e = () => {}) {
+  m = m.toLowerCase()
   // 校验 HTTP 方法
   const validMethods = new Set(["get", "post", "put", "delete"]);
   if (!validMethods.has(m)) {
     console.log(`无效的 HTTP 方法：${m}`);
     return;
   }
-
+  
   // 动态设置请求头
   if (t.headers) {
     if (m === "get") {
       delete t.headers["content-type"];
       delete t.headers["Content-Length"];
-    } else if (t.body && !t.headers["content-type"]) {
-      t.headers["content-type"] = "application/json";
     }
   }
-
+  
   // 代理配置（仅在需要时生成）
-  const proxyConfig = p.includes(":")
-    ? {
-        host: p.split(":")[0],
-        port: parseInt(p.split(":")[1]),
-      }
-    : undefined;
+  const proxyConfig = (p ?? '').includes(':') 
+  ? {protocol:'http',host: p.split(':')[0],port: Number(p.split(':')[1]),headers:{'Connection':'keep-alive'}}   // 端口转数字更稳妥
+  : undefined;
 
   // 请求配置
   const axiosConfig = {
@@ -493,33 +544,53 @@ function send(m, t, p, e = () => {}) {
     url: t.url,
     headers: t.headers,
     timeout: t.timeout,
-    data: m === "get" ? undefined : t.body,
+    [m === 'get' ? 'params' : 'data']: m === "get" ? undefined : t.body,
     proxy: proxyConfig,
+    httpsAgent: proxyConfig ? new https.Agent({rejectUnauthorized:false}):undefined
   };
 
-  // 发送请求并处理响应/错误
-  axios(axiosConfig)
-    .then((response) => {
-      const { status, headers, data } = response;
-      e(null, response.request, { statusCode: status, headers, body: data });
-    })
-    .catch((error) => {
-      console.error("请求失败:", error);
-      e(error, null, null);
-    });
-}
+    try {
+        const res = await axios(axiosConfig);
+        //console.log(res)
+        return {err: null, res: res, data: res.data };
+    } catch (err) {
+        return {err: err.response?.status ? err.message : err.message ? err.message : '请求失败',res: err.response ? err.response : null,data: err.response?.data ? err.response.data : null};
 
+        /*const error = new Error(err.message || 'Request failed');
+        error.statusCode = err.response?.status || 0;
+        error.response = err.response?.data || null;
+        throw error;*/
+    }
+}
+//=================================================================================
+//=================================================================================
+//=================================================================================
 // 获取代理 IP
 async function fetchProxyIp(url) {
   try {
-    const { data } = await axios.get(url);
-    return data; // 直接返回 data，避免不必要的变量声明
-  } catch (error) {
-    console.error("获取代理 IP 失败:", error.message);
-    throw error; // 保持错误抛出，便于上层处理
+    const { data } = await axios.get(url,{timeout:5000});
+
+    // 检查数据是否为空或非字符串
+    if (typeof data !== "string" || !data.trim()) {
+      console.log("获取代理 IP 无效:");
+      return null;
+    }
+    // 检查格式是否为 IP:端口
+    const parts = data.split(":");
+    if (parts.length !== 2) {
+      console.log("获取非代理 IP 格式:");
+      return null;  
+    }
+    // 返回有效数据
+    return data; 
+  } catch {
+    console.log("获取代理 IP 失败:");
+    return null;
   }
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 获取指定长度的时间戳
  * @param {number} len - 时间戳长度（10 或 13），默认为 13
@@ -533,7 +604,9 @@ function getTimestamps(len = 13) {
   const now = new Date();
   return len === 10 ? Math.floor(now.getTime() / 1000) : now.getTime();
 }
-
+//=================================================================================
+//=================================================================================
+//=================================================================================
 /**
  * 格式化日期时间
  * @param {Date|string|number} date - 日期对象、日期字符串或时间戳
@@ -603,6 +676,149 @@ function formatDateTime(date, format = "YYYY-MM-DD HH:mm:ss") {
     (match) => replacements[match]
   );
 }
+//=================================================================================
+//=================================================================================
+//=================================================================================
+async function formatDateTime(date, format = "YYYY-MM-DD HH:mm:ss") {
+  let d = date;
+  if (!(d instanceof Date)) {
+    d = new Date(d);
+  }
+
+  const pad = (n) => n.toString().padStart(2, "0");
+  const pad3 = (n) => n.toString().padStart(3, "0");
+
+  const year = d.getFullYear();
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const hours = d.getHours();
+  const minutes = d.getMinutes();
+  const seconds = d.getSeconds();
+  const milliseconds = d.getMilliseconds();
+  const isAM = hours < 12;
+
+  const replacements = {
+    YYYY: year,
+    YY: year.toString().slice(-2),
+    MM: pad(month),
+    M: month,
+    DD: pad(day),
+    D: day,
+    HH: pad(hours),
+    H: hours,
+    hh: pad(hours % 12 || 12),
+    h: hours % 12 || 12,
+    mm: pad(minutes),
+    m: minutes,
+    ss: pad(seconds),
+    s: seconds,
+    SSS: pad3(milliseconds),
+    A: isAM ? "上午" : "下午",
+    a: isAM ? "am" : "pm",
+  };
+
+  return format.replace(
+    /YYYY|YY|MM|M|DD|D|HH|H|hh|h|mm|m|ss|s|SSS|A|a/g,
+    (match) => replacements[match]
+  );
+}
+
+//=================================================================================
+//=================================================================================
+//=================================================================================
+/**
+ * 3DES 加密
+ * @param {string} plainText - 待加密的明文
+ * @param {string} key - 加密密钥（16 或 24 字节）
+ * @param {string} [iv] - 初始化向量（仅 CBC 模式需要）
+ * @param {string} [mode="CBC"] - 加密模式（CBC 或 ECB）
+ * @returns {string} - Base64 编码的密文
+ */
+function tripleDESEncrypt(plainText, key, iv, mode = "CBC") {
+  // 输入验证
+  if (typeof plainText !== "string" || !plainText.trim()) {
+    throw new Error("plainText 必须是非空字符串");
+  }
+  if (typeof key !== "string" || !key.trim()) {
+    throw new Error("key 必须是非空字符串");
+  }
+  if (mode !== "CBC" && mode !== "ECB") {
+    throw new Error('mode 必须是 "CBC" 或 "ECB"');
+  }
+  if (mode === "CBC" && (typeof iv !== "string" || !iv.trim())) {
+    throw new Error("iv 必须是非空字符串");
+  }
+
+  try {
+    const parsedKey = CryptoJs.enc.Utf8.parse(key);
+    const options = {
+      mode: mode === "CBC" ? CryptoJs.mode.CBC : CryptoJs.mode.ECB,
+      padding: CryptoJs.pad.Pkcs7,
+    };
+    if (mode === "CBC") {
+      options.iv = CryptoJs.enc.Utf8.parse(iv);
+    }
+
+    const encrypted = CryptoJs.TripleDES.encrypt(
+      CryptoJs.enc.Utf8.parse(plainText),
+      parsedKey,
+      options
+    );
+    return encrypted.toString();
+  } catch (error) {
+    console.error("3DES 加密失败:", error);
+    throw new Error("加密过程中发生错误");
+  }
+}
+//=================================================================================
+//=================================================================================
+//=================================================================================
+/**
+ * 3DES 解密
+ * @param {string} cipherText - Base64 编码的密文
+ * @param {string} key - 解密密钥（16 或 24 字节）
+ * @param {string} [iv] - 初始化向量（仅 CBC 模式需要）
+ * @param {string} [mode="CBC"] - 解密模式（CBC 或 ECB）
+ * @returns {string} - 解密后的明文
+ */
+function tripleDESDecrypt(cipherText, key, iv, mode = "CBC") {
+  // 输入验证
+  if (typeof cipherText !== "string" || !cipherText.trim()) {
+    throw new Error("cipherText 必须是非空字符串");
+  }
+  if (typeof key !== "string" || !key.trim()) {
+    throw new Error("key 必须是非空字符串");
+  }
+  if (mode !== "CBC" && mode !== "ECB") {
+    throw new Error('mode 必须是 "CBC" 或 "ECB"');
+  }
+  if (mode === "CBC" && (typeof iv !== "string" || !iv.trim())) {
+    throw new Error("iv 必须是非空字符串");
+  }
+
+  try {
+    const parsedKey = CryptoJs.enc.Utf8.parse(key);
+    const options = {
+      mode: mode === "CBC" ? CryptoJs.mode.CBC : CryptoJs.mode.ECB,
+      padding: CryptoJs.pad.Pkcs7,
+    };
+    if (mode === "CBC") {
+      options.iv = CryptoJs.enc.Utf8.parse(iv);
+    }
+
+    const decrypted = CryptoJs.TripleDES.decrypt(
+      cipherText,
+      parsedKey,
+      options
+    );
+    return decrypted.toString(CryptoJs.enc.Utf8);
+  } catch (error) {
+    console.error("3DES 解密失败:", error);
+    throw new Error("解密过程中发生错误");
+  }
+}
+
+
 
 module.exports = {
   延时: wait,
@@ -627,9 +843,10 @@ module.exports = {
   RSA加密: encrypt_rsa,
   RSA解密: decrypt_rsa,
   获取ip: fetchProxyIp,
-  axios: axios,
   NodeRSA: NodeRSA,
   发送HTTP请求: send,
   时间_取时间戳: getTimestamps,
   时间_格式化: formatDateTime,
+  DES_3加密: tripleDESEncrypt,
+  DES_3解密: tripleDESDecrypt,
 };
