@@ -101,7 +101,7 @@ async function wait(t) {
  * @returns {string} 脱敏后的手机号
  * @throws {Error} 如果 phone_num 不是字符串
  */
-async function phoneNum(phone_num) {
+function phoneNum(phone_num) {
   if (typeof phone_num !== "string") {
     throw new Error("phone_num 必须是字符串");
   }
@@ -122,7 +122,7 @@ async function phoneNum(phone_num) {
  * @returns {string} 补位后的字符串
  * @throws {Error} 如果 len 不是正整数或 side 不是 "左" 或 "右"
  */
-async function padStr(num, len, padding = "0", side = "左") {
+function padStr(num, len, padding = "0", side = "左") {
   if (typeof len !== "number" || len <= 0 || !Number.isInteger(len)) {
     throw new Error("len 必须是正整数");
   }
@@ -141,7 +141,7 @@ async function padStr(num, len, padding = "0", side = "左") {
  * @returns {*} 随机选择的数组元素
  * @throws {Error} 如果 a 不是数组或为空
  */
-async function randomList(a) {
+function randomList(a) {
   if (!Array.isArray(a) || a.length === 0) {
     throw new Error("输入字符串必须是非空数组");
   }
@@ -159,7 +159,7 @@ async function randomList(a) {
  * @returns {string} MD5 哈希值
  * @throws {Error} 如果 str 不是字符串或 len 不是 16 或 32
  */
-async function MD5(str, len = 32, upper = false) {
+function MD5(str, len = 32, upper = false) {
   if (typeof str !== "string") {
     throw new Error("str 必须是字符串");
   }
@@ -184,7 +184,7 @@ async function MD5(str, len = 32, upper = false) {
  * @returns {string} 随机字符串
  * @throws {Error} 如果 n 不是正整数
  */
-async function getStr(n) {
+function getStr(n) {
   if (typeof n !== "number" || n <= 0 || !Number.isInteger(n)) {
     throw new Error("n 必须是正整数");
   }
@@ -204,7 +204,7 @@ async function getStr(n) {
  * @returns {string} 随机数字字符串
  * @throws {Error} 如果 n 不是正整数
  */
-async function getNum(n) {
+function getNum(n) {
   if (typeof n !== "number" || n <= 0 || !Number.isInteger(n)) {
     throw new Error("n 必须是正整数");
   }
@@ -225,7 +225,7 @@ async function getNum(n) {
  * @returns {number} 随机整数
  * @throws {Error} 如果 min > max 或输入非数值
  */
-async function getRandomInt(min, max) {
+function getRandomInt(min, max) {
   if (typeof min !== "number" || typeof max !== "number") {
     throw new Error("min 和 max 必须是数值");
   }
@@ -247,7 +247,7 @@ async function getRandomInt(min, max) {
  * @returns {string} 签名字符串（十六进制或 Base64 格式）
  * @throws {Error} 如果 msg 或 Key 不是字符串，或 format 不是 "hex" 或 "base64"
  */
-async function HmacSHA256(msg, Key, format = "hex") {
+function HmacSHA256(msg, Key, format = "hex") {
   if (typeof msg !== "string" || typeof Key !== "string") {
     throw new Error("msg 和 Key 必须是字符串");
   }
@@ -270,7 +270,7 @@ async function HmacSHA256(msg, Key, format = "hex") {
  * @returns {boolean} 如果是偶数返回 true，否则返回 false
  * @throws {Error} 如果 number 不是数字
  */
-async function checkOddEven(number) {
+function checkOddEven(number) {
   if (typeof number !== "number") {
     throw new Error("number 必须是数字");
   }
@@ -288,7 +288,7 @@ async function checkOddEven(number) {
  * @returns {string} 加密后的字符串
  * @throws {Error} 如果 msg 或 key 不是字符串，或 mode 不是 "CBC" 或 "ECB"，或 CBC 模式下 iv 不是字符串
  */
-async function DES_encryptBy(msg, key, iv, mode = "CBC") {
+function DES_encryptBy(msg, key, iv, mode = "CBC") {
   if (typeof msg !== "string" || typeof key !== "string") {
     throw new Error("msg 和 key 必须是字符串");
   }
@@ -321,7 +321,7 @@ async function DES_encryptBy(msg, key, iv, mode = "CBC") {
  * @returns {string} 解密后的字符串
  * @throws {Error} 如果 msg 或 key 不是字符串，或 mode 不是 "CBC" 或 "ECB"，或 CBC 模式下 iv 不是字符串
  */
-async function DES_decryptBy(msg, key, iv, mode = "CBC") {
+function DES_decryptBy(msg, key, iv, mode = "CBC") {
   if (typeof msg !== "string" || typeof key !== "string") {
     throw new Error("msg 和 key 必须是字符串");
   }
@@ -355,7 +355,7 @@ async function DES_decryptBy(msg, key, iv, mode = "CBC") {
  * @returns {string} 加密后的字符串
  * @throws {Error} 如果 msg 或 key 不是字符串，或 mode 不是 "CBC" 或 "ECB"
  */
-async function AES_encrypt(msg, key, iv, mode = "CBC") {
+function AES_encrypt(msg, key, iv, mode = "CBC") {
   if (typeof msg !== "string" || typeof key !== "string") {
     throw new Error("msg 和 key 必须是字符串");
   }
@@ -388,7 +388,7 @@ async function AES_encrypt(msg, key, iv, mode = "CBC") {
  * @returns {string} 解密后的字符串
  * @throws {Error} 如果 msg 或 key 不是字符串，或 mode 不是 "CBC" 或 "ECB"
  */
-async function AES_decrypt(msg, key, iv, mode = "CBC") {
+function AES_decrypt(msg, key, iv, mode = "CBC") {
   if (typeof msg !== "string" || typeof key !== "string") {
     throw new Error("msg 和 key 必须是字符串");
   }
@@ -413,7 +413,7 @@ async function AES_decrypt(msg, key, iv, mode = "CBC") {
 //=================================================================================
 //=================================================================================
 // 生成 UUID
-async function getUUID(length = 36) {
+function getUUID(length = 36) {
   const chars = "0123456789abcdef";
   const randomChar = () => chars.charAt(Math.floor(Math.random() * 16));
   const uuid = Array.from({ length }, (_, i) => randomChar());
@@ -435,7 +435,7 @@ async function getUUID(length = 36) {
  * @returns {string} 随机生成的字符串
  * @throws {Error} 如果 len 不是正整数或 sentence 不是字符串
  */
-async function get_random_sentence(len, sentence) {
+function get_random_sentence(len, sentence) {
   if (typeof len !== "number" || len <= 0 || !Number.isInteger(len)) {
     throw new Error("len 必须是正整数");
   }
@@ -457,7 +457,7 @@ async function get_random_sentence(len, sentence) {
  * @param {Object} e - 需要转换的对象
  * @returns {string} 转换后的查询字符串
  */
-async function getStrFun(e) {
+function getStrFun(e) {
   var t = "";
   for (var n in e) t += "".concat(n, "=").concat(e[n], "&");
   return t.lastIndexOf("&") == t.length - 1 ? t.substring(0, t.length - 1) : t;
@@ -472,7 +472,7 @@ async function getStrFun(e) {
  * @param {string} [outputFormat="hex"] - 输出格式，支持 "hex" 或 "base64"
  * @returns {string} 加密后的字符串（十六进制或 Base64 格式）
  */
-async function encrypt_rsa(t, key, outputFormat = "base64") {
+function encrypt_rsa(t, key, outputFormat = "base64") {
   const nodersa = new NodeRSA(
     "-----BEGIN PUBLIC KEY-----\n" + key + "\n-----END PUBLIC KEY-----"
   );
@@ -494,7 +494,7 @@ async function encrypt_rsa(t, key, outputFormat = "base64") {
  * @param {string} [inputFormat="base64"] - 输入格式，支持 "base64" 或 "hex"
  * @returns {string} 解密后的原始字符串
  */
-async function decrypt_rsa(t, key, outputFormat = "base64") {
+function decrypt_rsa(t, key, outputFormat = "base64") {
   const nodersa = new NodeRSA(
     "-----BEGIN PUBLIC KEY-----\n" + key + "\n-----END PUBLIC KEY-----"
   );
@@ -529,7 +529,7 @@ async function send(m, t, p, e = () => {}) {
   if (t.headers) {
     if (m === "get") {
       delete t.headers["content-type"];
-      delete t.headers["Content-Length"];
+      delete t.headers["content-length"];
     }
   }
   
@@ -546,20 +546,36 @@ async function send(m, t, p, e = () => {}) {
     timeout: t.timeout,
     [m === 'get' ? 'params' : 'data']: m === "get" ? undefined : t.body,
     proxy: proxyConfig,
-    httpsAgent: proxyConfig ? new https.Agent({rejectUnauthorized:false}):undefined
+    httpsAgent: proxyConfig ? new https.Agent({rejectUnauthorized:false}):undefined,
+    maxRedirects: 5,
+    validateStatus: s => s < 400,
   };
-
-    try {
-        const res = await axios(axiosConfig);
-        //console.log(res)
-        return {err: null, res: res, data: res.data };
-    } catch (err) {
-        return {err: err.response?.status ? err.message : err.message ? err.message : '请求失败',res: err.response ? err.response : null,data: err.response?.data ? err.response.data : null};
-
-        /*const error = new Error(err.message || 'Request failed');
-        error.statusCode = err.response?.status || 0;
-        error.response = err.response?.data || null;
-        throw error;*/
+  //console.log(axiosConfig)
+  
+  //console.log(res)
+  try {
+      const res = await axios(axiosConfig);
+      //console.log(res)
+      if(res.status == 200){
+          return {err: null, res: res, data: res.data };
+          
+      }else if(res.status == 301){
+          return {err: null, res: res, data: res.data?res.data:'请求响应状态:'+res.status};
+          
+      }else{
+          return {err: null, res: res, data: res.data?res.data:'请求响应状态:'+res.status};
+          
+          
+      }
+      
+  } catch (err) {
+      const status = err.response?.status || err.status || 'NETWORK_ERROR';
+      const message = err.response?.data || err.message || null;
+      return {
+          err: status,
+          res: err.response || null,
+          data:message
+      };
     }
 }
 //=================================================================================
@@ -679,7 +695,7 @@ function formatDateTime(date, format = "YYYY-MM-DD HH:mm:ss") {
 //=================================================================================
 //=================================================================================
 //=================================================================================
-async function formatDateTime(date, format = "YYYY-MM-DD HH:mm:ss") {
+function formatDateTime(date, format = "YYYY-MM-DD HH:mm:ss") {
   let d = date;
   if (!(d instanceof Date)) {
     d = new Date(d);
