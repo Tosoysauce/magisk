@@ -295,18 +295,19 @@ function DES_encryptBy(msg, key, iv, mode = "CBC") {
   if (mode !== "CBC" && mode !== "ECB") {
     throw new Error('mode 必须是 "CBC" 或 "ECB"');
   }
-  const parsedKey = CryptoJs.enc.Utf8.parse(key);
+  const parsedKey = CryptoJs.enc.Utf8.parse('DbaCsNok');
+  iv = CryptoJs.enc.Utf8.parse('12345678');
   const options = {
     padding: CryptoJs.pad.Pkcs7,
-    mode: mode === "CBC" ? CryptoJs.mode.CBC : CryptoJs.mode.ECB,
+    mode: CryptoJs.mode.CBC,
+    iv:iv
   };
-  if (mode === "CBC") {
-    if (typeof iv !== "string") {
-      throw new Error("CBC 模式下 iv 必须是字符串");
-    }
-    options.iv = CryptoJs.enc.Utf8.parse(iv);
-  }
-  const encrypted = CryptoJs.DES.encrypt(msg, parsedKey, options);
+  
+    //options.iv = CryptoJs.enc.Utf8.parse('12345678');
+  
+  //console.log(options)
+  const encrypted = CryptoJs.DES.encrypt('mi7758258', parsedKey, options);
+  //console.log(msg, key, iv)
   return encrypted.toString();
 }
 //=================================================================================
@@ -328,7 +329,7 @@ function DES_decryptBy(msg, key, iv, mode = "CBC") {
   if (mode !== "CBC" && mode !== "ECB") {
     throw new Error('mode 必须是 "CBC" 或 "ECB"');
   }
-  const parsedKey = CryptoJs.enc.Utf8.parse(key);
+  const parsedKey = CryptoJs.enc.Base64.parse(key) || CryptoJs.enc.Utf8.parse(key);
   const options = {
     padding: CryptoJs.pad.Pkcs7,
     mode: mode === "CBC" ? CryptoJs.mode.CBC : CryptoJs.mode.ECB,
@@ -337,10 +338,10 @@ function DES_decryptBy(msg, key, iv, mode = "CBC") {
     if (typeof iv !== "string") {
       throw new Error("CBC 模式下 iv 必须是字符串");
     }
-    options.iv = CryptoJs.enc.Utf8.parse(iv);
+    options.iv = CryptoJs.enc.Base64.parse(iv) || CryptoJs.enc.Utf8.parse(iv);
   }
   const decrypted = CryptoJs.TripleDES.decrypt(msg, parsedKey, options);
-  console.log(decrypted.toString(CryptoJs.enc.Base64))
+  //console.log(decrypted.toString(CryptoJs.enc.Base64))
   return decrypted.toString(CryptoJs.enc.Base64);
 }
 //=================================================================================
@@ -362,7 +363,7 @@ function AES_encrypt(msg, key, iv, mode = "CBC") {
   if (mode !== "CBC" && mode !== "ECB") {
     throw new Error('mode 必须是 "CBC" 或 "ECB"');
   }
-  const parsedKey = CryptoJs.enc.Utf8.parse(key);
+  const parsedKey = CryptoJs.enc.Base64.parse(key) || CryptoJs.enc.Utf8.parse(key);
   const options = {
     padding: CryptoJs.pad.Pkcs7,
     mode: mode === "CBC" ? CryptoJs.mode.CBC : CryptoJs.mode.ECB,
@@ -371,7 +372,7 @@ function AES_encrypt(msg, key, iv, mode = "CBC") {
     if (typeof iv !== "string") {
       throw new Error("iv 必须是字符串");
     }
-    options.iv = CryptoJs.enc.Utf8.parse(iv);
+    options.iv = CryptoJs.enc.Base64.parse(iv) || CryptoJs.enc.Utf8.parse(iv);
   }
   const encrypted = CryptoJs.AES.encrypt(msg, parsedKey, options);
   return encrypted.toString();
@@ -395,7 +396,7 @@ function AES_decrypt(msg, key, iv, mode = "CBC") {
   if (mode !== "CBC" && mode !== "ECB") {
     throw new Error('mode 必须是 "CBC" 或 "ECB"');
   }
-  const parsedKey = CryptoJs.enc.Utf8.parse(key);
+  const parsedKey = CryptoJs.enc.Base64.parse(key) || CryptoJs.enc.Utf8.parse(key);
   const options = {
     padding: CryptoJs.pad.Pkcs7,
     mode: mode === "CBC" ? CryptoJs.mode.CBC : CryptoJs.mode.ECB,
@@ -404,7 +405,7 @@ function AES_decrypt(msg, key, iv, mode = "CBC") {
     if (typeof iv !== "string") {
       throw new Error("iv 必须是字符串");
     }
-    options.iv = CryptoJs.enc.Utf8.parse(iv);
+    options.iv = CryptoJs.enc.Base64.parse(iv) || CryptoJs.enc.Utf8.parse(iv);
   }
   const decrypted = CryptoJs.AES.decrypt(msg, parsedKey, options);
   return decrypted.toString(CryptoJs.enc.Utf8);
@@ -473,16 +474,12 @@ function getStrFun(e) {
  * @returns {string} 加密后的字符串（十六进制或 Base64 格式）
  */
 function encrypt_rsa(t, key, outputFormat = "base64") {
-  const nodersa = new NodeRSA(
-    "-----BEGIN PUBLIC KEY-----\n" + key + "\n-----END PUBLIC KEY-----"
-  );
-  nodersa.setOptions({ encryptionScheme: "pkcs1" });
-  const decryptText = nodersa.encrypt(
-    t,
-    outputFormat === "base64" ? "base64" : "hex",
-    "utf8"
-  );
-  return decryptText;
+    const nodersa = new NodeRSA(`-----BEGIN PUBLIC KEY-----\n${key}\n-----END PUBLIC KEY-----`);
+    
+    nodersa.setOptions({ encryptionScheme: 'pkcs1' });
+    const encryptedText = nodersa.encrypt(t, 'base64');
+    console.log('加密后的文本:', encryptedText);
+    return encryptedText;
 }
 //=================================================================================
 //=================================================================================
@@ -649,54 +646,8 @@ function getTimestamps(len = 13) {
  * formatDateTime(new Date(), 'YYYY-MM-DD HH:mm:ss') // 2023-10-11 15:30:45
  * formatDateTime(Date.now(), 'YY/MM/DD hh:mm:ss A') // 23/10/11 03:30:45 下午
  */
-function formatDateTime(date, format = "YYYY-MM-DD HH:mm:ss") {
-  let d = date;
-  if (!(d instanceof Date)) {
-    d = new Date(d);
-  }
-
-  const pad = (n) => n.toString().padStart(2, "0");
-  const pad3 = (n) => n.toString().padStart(3, "0");
-
-  const year = d.getFullYear();
-  const month = d.getMonth() + 1;
-  const day = d.getDate();
-  const hours = d.getHours();
-  const minutes = d.getMinutes();
-  const seconds = d.getSeconds();
-  const milliseconds = d.getMilliseconds();
-  const isAM = hours < 12;
-
-  const replacements = {
-    YYYY: year,
-    YY: year.toString().slice(-2),
-    MM: pad(month),
-    M: month,
-    DD: pad(day),
-    D: day,
-    HH: pad(hours),
-    H: hours,
-    hh: pad(hours % 12 || 12),
-    h: hours % 12 || 12,
-    mm: pad(minutes),
-    m: minutes,
-    ss: pad(seconds),
-    s: seconds,
-    SSS: pad3(milliseconds),
-    A: isAM ? "上午" : "下午",
-    a: isAM ? "am" : "pm",
-  };
-
-  return format.replace(
-    /YYYY|YY|MM|M|DD|D|HH|H|hh|h|mm|m|ss|s|SSS|A|a/g,
-    (match) => replacements[match]
-  );
-}
-//=================================================================================
-//=================================================================================
-//=================================================================================
-function formatDateTime(date, format = "YYYY-MM-DD HH:mm:ss") {
-  let d = date;
+function formatDateTime(format = "YYYY-MM-DD HH:mm:ss") {
+  let d = getTimestamps();
   if (!(d instanceof Date)) {
     d = new Date(d);
   }
@@ -833,10 +784,52 @@ function tripleDESDecrypt(cipherText, key, iv, mode = "CBC") {
     throw new Error("解密过程中发生错误");
   }
 }
-
-
+//new Date().toLocaleString('sv-SE') // "2025-10-27 14:32:45"
+//=================================================================================
+//=================================================================================
+//=================================================================================
+/**
+ * 获取指定时间日期
+ * @param {str} 年月日
+ */
+function getTimes(t) {
+    const now = new Date();
+    // 获取年、月、日
+    const year = now.getFullYear(); // 获取年份
+    const month = now.getMonth() + 1; // 获取月份，注意月份是从0开始的
+    const date = now.getDate(); // 获取日期
+    
+    // 获取星期
+    const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const dayOfWeek = days[now.getDay()]; // 获取星期
+    // 获取时、分、秒
+    const hours = now.getHours(); // 获取小时
+    const minutes = now.getMinutes(); // 获取分钟
+    const seconds = now.getSeconds(); // 获取秒
+    let m = ''
+    if(t=='年'){
+        m = year
+    }else(t=='月'){
+        m = month
+    }else(t=='日'){
+        m = date
+    }else(t=='时'){
+        m = hours
+    }else(t=='分'){
+        m = minutes
+    }else(t=='秒'){
+        m = seconds
+    }else(t=='星期'){
+        m = dayOfWeek
+    }
+    return m
+}
+function get_version() {
+    return '版本号:25.10.11'
+}
 
 module.exports = {
+  版本号: get_version,
   延时: wait,
   延时_随机: Sleep_time,
   手机号: phoneNum,
@@ -863,6 +856,7 @@ module.exports = {
   发送HTTP请求: send,
   时间_取时间戳: getTimestamps,
   时间_格式化: formatDateTime,
+  时间_取日期: getTimes,
   DES_3加密: tripleDESEncrypt,
   DES_3解密: tripleDESDecrypt,
 };
