@@ -809,23 +809,36 @@ function getTimes(t) {
     let m = ''
     if(t=='年'){
         m = year
-    }else(t=='月'){
+    }else if(t=='月'){
         m = month
-    }else(t=='日'){
+    }else if(t=='日'){
         m = date
-    }else(t=='时'){
+    }else if(t=='时'){
         m = hours
-    }else(t=='分'){
+    }else if(t=='分'){
         m = minutes
-    }else(t=='秒'){
+    }else if(t=='秒'){
         m = seconds
-    }else(t=='星期'){
+    }else if(t=='星期'){
         m = dayOfWeek
     }
     return m
 }
 function get_version() {
     return '版本号:25.10.11'
+}
+function timeUntilNextTen() {
+    const now = new Date(); // 获取当前时间
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // 获取今天0点的时间
+    const nextTen = new Date(today.getTime() + 10 * 60 * 60 * 1000); // 计算下一个10点的时间
+
+    // 如果当前时间已经过了10点，计算到下一个10点的时间
+    if (now >= nextTen) {
+        nextTen.setUTCDate(nextTen.getUTCDate() + 1); // 加一天
+    }
+
+    const timeUntilNextTen = nextTen - now; // 计算时间差（毫秒）
+    return timeUntilNextTen;
 }
 
 module.exports = {
@@ -857,6 +870,7 @@ module.exports = {
   时间_取时间戳: getTimestamps,
   时间_格式化: formatDateTime,
   时间_取日期: getTimes,
+  时间_取时间差: timeUntilNextTen,
   DES_3加密: tripleDESEncrypt,
   DES_3解密: tripleDESDecrypt,
 };
